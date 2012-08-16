@@ -46,8 +46,7 @@ public class SohukanHttpClient {
             HttpResponse response = client.execute(request);
             in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             String result = null;
-            String NL = System.getProperty("line.separator");
-
+//            String NL = System.getProperty("line.separator");
             while (!Thread.interrupted()) {
                 result = exec.submit(new worker(in)).get(40, TimeUnit.SECONDS);
                 if (StringUtils.isNotBlank(result)) {
