@@ -1,0 +1,15 @@
+package learning;
+import robocode.AdvancedRobot;
+aaa
+bbb
+public class GenyMove extends AdvancedRobot {
+
+    public void run() {
+        while (true) {
+            setAhead(1000);
+            setTurnRight(90);xxx
+            out.println("[" + Math.round(getX()) + "," + Math.round(getY()) + "]");
+        }
+    }
+}
+abc

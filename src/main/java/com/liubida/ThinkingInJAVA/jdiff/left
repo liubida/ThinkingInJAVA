@@ -1,0 +1,336 @@
+.................
+............................
+.............................
+..
+
+begin
+!
+# ***** ALL (DEFAULT and NON-DEFAULT) CONFIGURATION *****
+!
+#time: Fri May 20 2011, 11:30:57 PDT
+!
+#version 8.3(2)GLX
+!
+#system web interface version(s)
+set password $2$FMFQ$HfZR5DUszVHIRhrz4h6V70
+set enablepass $2$FMFQ$HfZR5DUszVHIRhrz4h6V70
+set prompt ASW-C2948G-207.NTT>
+set length 24 default
+set logout 20
+set config mode binary
+set banner motd ^C^C
+!
+#test
+set test diaglevel complete
+!
+#dot1x
+set dot1x system-auth-control enable
+set dot1x quiet-period 60
+set dot1x tx-period 30
+set dot1x shutdown-timeout 300
+set dot1x supp-timeout 30
+set dot1x server-timeout 30
+set dot1x max-req 2
+set dot1x re-authperiod 3600
+set feature dot1x-radius-keepalive disable
+!
+#errordetection
+set errordetection inband disable
+set errordetection memory disable
+!
+#system
+set system baud  9600
+set system modem disable
+set system name  ASW-207-C2948G-1A.NET.SJO.EN
+set system location 
+set system contact  
+set system countrycode 
+set traffic monitor 100
+set feature log-command enable
+set feature loop-detect enable
+!
+#power
+set power budget 1
+!
+#Default Inlinepower
+set inlinepower defaultallocation 15400
+!
+#frame distribution method
+set port channel all distribution mac both
+!
+#mac address reduction
+set spantree macreduction enable
+!
+#default portcost mode
+set spantree defaultcostmode long
+!
+#snmp
+set snmp community read-only      
+set snmp community read-write     
+set snmp community read-write-all 
+set snmp rmon disable
+set snmp rmonmemory 85
+set snmp enable 
+set snmp trap disable module
+set snmp trap disable chassis
+set snmp trap disable bridge
+set snmp trap disable vtp
+set snmp trap disable vlancreate
+set snmp trap disable vlandelete
+set snmp trap disable auth
+set snmp trap disable entityfru
+set snmp trap disable ippermit
+set snmp chassis-alias 
+set snmp buffer 40
+set snmp access  alibaba security-model v3 authentication read  defaultAdminView  nonvolatile
+set snmp user  alimonitor nonvolatile
+set snmp group  alibaba user  alimonitor security-model v3 nonvolatile
+set snmp trap disable vmps
+set snmp trap disable entity
+set snmp trap disable config
+set snmp trap disable stpx
+set snmp trap disable syslog
+set snmp trap disable system
+set snmp trap disable envfan
+set snmp trap disable envpower
+set snmp trap disable envstate
+set snmp trap disable macnotification
+!
+#tacacs+
+set tacacs server 172.16.62.108 primary
+set tacacs server 172.16.127.9
+set tacacs attempts 3
+set tacacs directedrequest disable
+set tacacs key ciscoacs
+set tacacs timeout 5
+!
+#radius
+set radius deadtime 0
+set radius timeout 5
+set radius retransmit 2
+set radius attribute framed-ip-address include-in-access-req disable
+!
+#kerberos
+!
+#authentication
+set authentication login tacacs disable console 
+set authentication login tacacs enable telnet primary
+set authentication login tacacs enable http primary
+set authentication enable tacacs disable console 
+set authentication enable tacacs disable telnet 
+set authentication enable tacacs disable http 
+set authentication login radius disable console 
+set authentication login radius disable telnet 
+set authentication login radius disable http 
+set authentication enable radius disable console 
+set authentication enable radius disable telnet 
+set authentication enable radius disable http 
+set authentication login local enable console 
+set authentication login local enable telnet 
+set authentication login local enable http 
+set authentication enable local enable console 
+set authentication enable local enable telnet 
+set authentication enable local enable http 
+set authentication login kerberos disable console 
+set authentication login kerberos disable telnet 
+set authentication login kerberos disable http 
+set authentication enable kerberos disable console 
+set authentication enable kerberos disable telnet 
+set authentication enable kerberos disable http 
+set authentication login attempt 3 console
+set authentication login attempt 3 telnet
+set authentication login lockout 0 console
+set authentication login lockout 0 telnet
+set authentication enable attempt 3 console
+set authentication enable attempt 3 telnet
+set authentication enable lockout 0 console
+set authentication enable lockout 0 telnet
+!
+#Local User
+set localuser user maxk password $1$H6Nv$AM7fbDvb.I2Z4C5Qv4xIG/ privilege 15
+set localuser user linyu password $1$nINM$6oX2FOAODR0EXswrZ16Yt0 privilege 15
+set localuser user hujun password $1$.JoI$RsM6hJ6k9iehLqSFJh..U. privilege 15
+set localuser user tieqiu password $1$r3XI$3eNwRF7tumLyTPx2Bh0wF. privilege 15
+set localuser user linzhiting password $1$qfB7$y.RXXPTNiq2xCHz19gmHK. privilege 15
+set localuser authentication enable
+!
+#stp mode
+set spantree mode mst
+!
+#vtp
+set vtp domain Alibaba
+set vtp mode transparent unknown
+set vtp mode transparent vlan
+set vtp version 1
+set vtp pruneeligible 2-1000
+clear vtp pruneeligible 1001-1005
+set vlan 2 name web type ethernet mtu 1500 said 100002 state active 
+set vlan 4 name mail type ethernet mtu 1500 said 100004 state active 
+set vlan 9 name other type ethernet mtu 1500 said 100009 state active 
+set vlan 11 name resource type ethernet mtu 1500 said 100011 state active 
+set vlan 13 name datahouse type ethernet mtu 1500 said 100013 state active 
+set vlan 40 name japan-site type ethernet mtu 1500 said 100040 state active 
+set vlan 62 name net-mgt type ethernet mtu 1500 said 100062 state active 
+set vlan 102 name web_drac type ethernet mtu 1500 said 100102 state active 
+set vlan 104 name mail_drac type ethernet mtu 1500 said 100104 state active 
+set vlan 109 name drac_other type ethernet mtu 1500 said 100109 state active 
+set vlan 111 name resource_drac type ethernet mtu 1500 said 100111 state active 
+set vlan 140 name japan_drac type ethernet mtu 1500 said 100140 state active 
+set vlan 1002 name fddi-default type fddi mtu 1500 said 101002 state active 
+set vlan 1004 name fddinet-default type fddinet mtu 1500 said 101004 state active stp ieee 
+set vlan 1005 name trnet-default type trbrf mtu 1500 said 101005 state active stp ibm 
+set vlan 1
+set vlan 1003 name token-ring-default type trcrf mtu 1500 said 101003 state active mode srb aremaxhop 0 stemaxhop 0 backupcrf off 
+!
+#dot1q-all-tagged
+set dot1q-all-tagged disable 
+!
+#ip
+set feature mdg enable
+set feature psync-recovery no-powerdown
+set interface sc0 62 172.20.62.57/255.255.255.0 172.20.62.255
+
+set interface sc0 up
+set interface trap sc0 disable
+set interface sl0 0.0.0.0 0.0.0.0
+set interface sl0 down
+set interface trap sl0 disable
+set interface me1 0.0.0.0 0.0.0.0 0.0.0.0
+
+set interface me1 down
+set interface trap me1 disable
+set arp agingtime 1200
+set ip redirect   enable
+set ip unreachable   enable
+set ip fragmentation enable
+set ip route 0.0.0.0/0.0.0.0         172.20.62.254  
+set ip alias default         0.0.0.0
+!
+#command alias
+!
+#vmps
+set vmps server retry 3
+set vmps server reconfirminterval 60
+set vmps downloadmethod tftp
+set vmps downloadserver 0.0.0.0 vmps-config-database.1 
+set vmps state disable
+
+!
+#rcp
+set rcp username 
+!
+#dns
+set ip dns disable
+!
+#spantree
+#spantree global defaults
+set spantree global-default portfast disable
+set spantree global-default loop-guard disable
+#portfast
+set spantree global-default bpdu-guard disable
+set spantree global-default bpdu-filter disable
+#bpdu-skewing
+set spantree bpdu-skewing disable
+
+#MST (IEEE 802.1s)
+set spantree fwddelay 15 mst
+set spantree hello 2  mst
+set spantree maxage 20 mst
+set spantree mst maxhops 20
+set spantree priority 32768 mst
+set spantree priority 32768 mst 1
+set spantree priority 32768 mst 2
+set spantree priority 32768 mst 3
+set spantree priority 32768 mst 4
+set spantree priority 32768 mst 5
+set spantree priority 32768 mst 6
+set spantree priority 32768 mst 7
+set spantree priority 32768 mst 8
+set spantree priority 32768 mst 9
+set spantree priority 32768 mst 10
+set spantree priority 32768 mst 11
+set spantree priority 32768 mst 12
+set spantree priority 32768 mst 13
+set spantree priority 32768 mst 14
+set spantree priority 32768 mst 15
+
+#MST Configuration
+set spantree mst config rollback force
+set spantree mst config name alibaba revision 2
+set spantree mst 0 vlan 1-4094
+set spantree mst config commit 
+
+!
+#cgmp
+set cgmp disable
+set cgmp leave disable
+set cgmp fastleave disable
+!
+#syslog
+set logging console disable
+set logging telnet enable
+set logging server disable
+set logging level cdp 4 default
+set logging level mcast 2 default
+set logging level dtp 5 default
+set logging level dvlan 2 default
+set logging level earl 2 default
+set logging level ip 3 default
+set logging level pruning 2 default
+set logging level snmp 2 default
+set logging level spantree 2 default
+set logging level sys 5 default
+set logging level tac 2 default
+set logging level tcp 2 default
+set logging level telnet 2 default
+set logging level tftp 2 default
+set logging level vtp 2 default
+set logging level vmps 2 default
+set logging level kernel 2 default
+set logging level filesys 2 default
+set logging level mgmt 5 default
+set logging level mls 5 default
+set logging level protfilt 2 default
+set logging level security 2 default
+set logging level radius 2 default
+set logging level udld 4 default
+set logging level gvrp 2 default
+set logging level qos 3 default
+set logging level ethc 5 default
+set logging server facility LOCAL7
+set logging server severity 4
+set logging timestamp enable
+set logging buffer 500
+set logging history 1
+set logging history severity 4
+!
+#ntp
+set ntp broadcastclient disable
+set ntp broadcastdelay 3000
+set ntp client enable
+set ntp authentication disable
+set ntp server 172.20.9.1
+set ntp server 128.242.107.228
+set timezone PDT -7 0
+set summertime disable 
+set summertime recurring
+!
+#set boot command
+set boot config-register 0x2
+set boot system flash bootflash:cat4000-k8.8-3-2-GLX.bin
+!
+#permit list
+set ip permit disable telnet
+set ip permit disable ssh
+set ip permit disable snmp
+!
+#permanent arp entries
+!
+#protocolfilter
+set protocolfilter disable
+!
+#standby ports
+set standbyports disable
+!
+#vlan mapping
+...

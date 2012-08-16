@@ -1,0 +1,158 @@
+This command shows non-default configurations only.
+Use 'show config all' to show both default and non-default configurations.
+.................
+
+.............................
+..
+
+begin
+!
+# ***** NON-DEFAULT CONFIGURATION *****
+!
+#time: Wed May 18 2011, 01:43:20 PDT
+!
+#version 8.3(2)GLX
+!
+#system web interface version(s)
+set prompt ASW-C2948G-207.NTT>
+!
+#dot1x
+set feature dot1x-radius-keepalive disable
+!
+#system
+set system name  ASW-207-C2948G-1A.NET.SJO.EN
+!
+#frame distribution method
+set port channel all distribution mac both
+!
+#default portcost mode
+set spantree defaultcostmode long
+!
+#snmp
+set snmp community read-only      
+set snmp community read-write     
+set snmp community read-write-all 
+set snmp access  alibaba security-model v3 authentication read  defaultAdminView  nonvolatile
+set snmp user  alimonitor nonvolatile
+set snmp group  alibaba user  alimonitor security-model v3 nonvolatile
+!
+#tacacs+
+set tacacs server 172.16.62.108 primary
+set tacacs server 172.16.127.9
+set tacacs key ciscoacs
+!
+#authentication
+set authentication login tacacs enable telnet primary
+set authentication login tacacs enable http primary
+!
+#Local User
+set localuser user maxk password $1$H6Nv$AM7fbDvb.I2Z4C5Qv4xIG/ privilege 15
+set localuser user linyu password $1$nINM$6oX2FOAODR0EXswrZ16Yt0 privilege 15
+set localuser user hujun password $1$.JoI$RsM6hJ6k9iehLqSFJh..U. privilege 15
+set localuser user tieqiu password $1$r3XI$3eNwRF7tumLyTPx2Bh0wF. privilege 15
+set localuser user linzhiting password $1$qfB7$y.RXXPTNiq2xCHz19gmHK. privilege 15
+set localuser authentication enable
+!
+#stp mode
+set spantree mode mst
+!
+#vtp
+set vtp domain Alibaba
+set vtp mode transparent vlan
+set vlan 2 name web type ethernet mtu 1500 said 100002 state active 
+set vlan 4 name mail type ethernet mtu 1500 said 100004 state active 
+set vlan 9 name other type ethernet mtu 1500 said 100009 state active 
+set vlan 11 name resource type ethernet mtu 1500 said 100011 state active 
+set vlan 13 name datahouse type ethernet mtu 1500 said 100013 state active 
+set vlan 40 name japan-site type ethernet mtu 1500 said 100040 state active 
+set vlan 62 name net-mgt type ethernet mtu 1500 said 100062 state active 
+set vlan 102 name web_drac type ethernet mtu 1500 said 100102 state active 
+set vlan 104 name mail_drac type ethernet mtu 1500 said 100104 state active 
+set vlan 109 name drac_other type ethernet mtu 1500 said 100109 state active 
+set vlan 111 name resource_drac type ethernet mtu 1500 said 100111 state active 
+set vlan 140 name japan_drac type ethernet mtu 1500 said 100140 state active 
+set vlan 1002 name fddi-default type fddi mtu 1500 said 101002 state active 
+set vlan 1004 name fddinet-default type fddinet mtu 1500 said 101004 state active stp ieee 
+set vlan 1005 name trnet-default type trbrf mtu 1500 said 101005 state active stp ibm 
+set vlan 1
+set vlan 1003 name token-ring-default type trcrf mtu 1500 said 101003 state active mode srb aremaxhop 0 stemaxhop 0 backupcrf off 
+!
+#ip
+set interface sc0 62 172.20.62.57/255.255.255.0 172.20.62.255
+
+set interface sl0 down
+set interface me1 down
+set ip route 0.0.0.0/0.0.0.0         172.20.62.254  
+set ip alias default         0.0.0.0
+!
+#spantree
+
+#MST (IEEE 802.1s)
+
+#MST Configuration
+set spantree mst config rollback force
+set spantree mst config name alibaba revision 2
+set spantree mst config commit 
+
+!
+#syslog
+set logging console disable
+!
+#ntp
+set ntp client enable
+set ntp server 172.20.9.1
+set ntp server 128.242.107.228
+set timezone PDT -7 0
+!
+#set boot command
+set boot config-register 0x2
+set boot system flash bootflash:cat4000-k8.8-3-2-GLX.bin
+!
+#multicast filter
+set igmp filter disable
+!
+#module 1 : 0-port Switching Supervisor
+!
+#module 2 : 52-port 10/100/1000 Ethernet
+set vlan 2    2/12,2/14
+set vlan 4    2/8,2/16,2/18,2/20,2/22,2/24,2/26,2/28,2/30,2/32,2/34,2/36,2/38,2/40,2/42,2/44
+set vlan 9    2/10
+set vlan 11   2/2,2/4,2/6
+set vlan 40   2/1,2/3,2/5,2/7,2/9,2/11,2/13,2/15,2/17,2/19,2/21,2/23,2/25,2/27,2/29,2/31,2/33,2/35,2/37,2/39,2/41,2/43
+set port disable    2/24,2/32-35,2/37,2/39-45,2/49-52
+
+set port speed      2/47-48 1000
+set trunk 2/46 on dot1q 1-1005,1025-4094
+set trunk 2/47 on dot1q 1-1005,1025-4094
+set trunk 2/48 on dot1q 1-1005,1025-4094
+set spantree portfast    2/46 disable
+set spantree portfast    2/1-45 enable
+set spantree portinstancecost 2/2  cost 19999 mst 
+set spantree portinstancecost 2/8  cost 19999 mst 
+set spantree portinstancecost 2/17 cost 19999 mst 
+set spantree portinstancecost 2/19 cost 19999 mst 
+set spantree portinstancecost 2/20 cost 19999 mst 
+set spantree portinstancecost 2/24 cost 19999 mst 
+set spantree portinstancecost 2/32 cost 19999 mst 
+set spantree portinstancecost 2/33 cost 19999 mst 
+set spantree portinstancecost 2/34 cost 19999 mst 
+set spantree portinstancecost 2/35 cost 19999 mst 
+set spantree portinstancecost 2/36 cost 19999 mst 
+set spantree portinstancecost 2/37 cost 19999 mst 
+set spantree portinstancecost 2/39 cost 19999 mst 
+set spantree portinstancecost 2/40 cost 19999 mst 
+set spantree portinstancecost 2/41 cost 19999 mst 
+set spantree portinstancecost 2/42 cost 19999 mst 
+set spantree portinstancecost 2/43 cost 19999 mst 
+set spantree portinstancecost 2/44 cost 19999 mst 
+set spantree portinstancecost 2/45 cost 19999 mst 
+set spantree portinstancecost 2/49 cost -1 mst 
+set spantree portinstancecost 2/50 cost -1 mst 
+set spantree portinstancecost 2/51 cost -1 mst 
+set spantree portinstancecost 2/52 cost -1 mst 
+!
+#authorization
+set authorization exec enable tacacs+ if-authenticated console
+set authorization exec enable tacacs+ if-authenticated telnet
+end
+

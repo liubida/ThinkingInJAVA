@@ -1,0 +1,82 @@
+1: /**
+2:  * Project: ThinkingInJAVA
+3:  * 
+4:  * File Created at 2011-6-8
+5:  * $Id$
+6:  * 
+7:  * Copyright 1999-2100 Alibaba.com Corporation Limited.
+8:  * All rights reserved.
+9:  *
+10:  * This software is the confidential and proprietary information of
+11:  * Alibaba Company. ("Confidential Information").  You shall not
+12:  * disclose such Confidential Information and shall use it only in
+13:  * accordance with the terms of the license agreement you entered into
+14:  * with Alibaba.com.
+15:  */
+16: package io;
+17: 
+18: import java.io.BufferedReader;
+19: import java.io.BufferedWriter;
+20: import java.io.File;
+21: import java.io.FileReader;
+22: import java.io.FileWriter;
+23: import java.io.IOException;
+24: import java.io.PrintWriter;
+25: 
+26: /**
+27:  * @author liubida
+28:  */
+29: public class FileOutputShortcut {
+30:     static String inFile  = "./src/io/FileOutputShortcut.java";
+31:     static String outFile = "./src/io/FileOutputShortcut.out";
+32: 
+33:     private static void del(){
+34:         File one = new File(outFile);
+35:         if(one.exists()){
+36:             one.delete();
+37:         }
+38:     }
+39:     public static void FileInOut1() throws IOException {
+40:         del();
+41:         FileReader in = new FileReader(inFile);
+42:         FileWriter out = new FileWriter(outFile);
+43:         int c;
+44:         while (-1 != (c = in.read())) {
+45:             out.write(c);
+46:         }
+47:         out.close();
+48:         in.close();
+49:         System.out.println(BufferedInputFile.read(outFile));
+50:     }
+51: 
+52:     public static void FileInOut2() throws IOException {
+53:         del();
+54:         BufferedReader in = new BufferedReader(new FileReader(inFile));
+55:         PrintWriter out = new PrintWriter(outFile);
+56:         String s;
+57:         int lineCount = 1;
+58:         while (null != (s = in.readLine())) {
+59:             out.printf("%d: %s\n", lineCount++, s);
+60:         }
+61:         out.close();
+62:         in.close();
+63:         System.out.println(BufferedInputFile.read(outFile));
+64:     }
+65:     public static void FileInOut3() throws IOException {
+66:         del();
+67:         BufferedReader in = new BufferedReader(new FileReader(inFile));
+68:         BufferedWriter out = new BufferedWriter(new FileWriter(outFile));
+69:         String s;
+70:         while (null != (s = in.readLine())) {
+71:             out.write(s);
+72:             out.newLine();
+73:         }
+74:         out.close();
+75:         in.close();
+76:         System.out.println(BufferedInputFile.read(outFile));
+77:     }
+78:     public static void main(String[] args) throws IOException {
+79:         FileInOut2();
+80: //        FileInOut1();
+81:     }
+82: }
