@@ -66,7 +66,7 @@ public class CallableDemo {
     public static void main(String[] args) {
         List<TaskModel> resultList = new ArrayList<TaskModel>();
         ExecutorService exec = Executors.newCachedThreadPool();
-        for (int i = 1; i <= 80; i++) {
+        for (int i = 1; i <= 10; i++) {
             TaskModel tm = new TaskModel();
             tm.id = i;
             tm.fu = exec.submit(new FibonacciTaskWithResult(i));

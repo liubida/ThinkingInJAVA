@@ -1,18 +1,14 @@
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * Project: ThinkingInJAVA
- * 
  * File Created at 2011-9-15
  * $Id$
- * 
  * Copyright 1999-2100 Alibaba.com Corporation Limited.
  * All rights reserved.
- *
  * This software is the confidential and proprietary information of
- * Alibaba Company. ("Confidential Information").  You shall not
+ * Alibaba Company. ("Confidential Information"). You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
  * with Alibaba.com.
@@ -22,8 +18,7 @@ import java.io.InputStreamReader;
  * @author liubida
  */
 
-interface a {
-}
+interface a {}
 
 public abstract class hello {
 
@@ -55,7 +50,8 @@ public abstract class hello {
         char tmp = a[0];
         int count = 1;
         for (int i = 1; i < a.length; i++) {
-            if (tmp == a[i]) count++;
+            if (tmp == a[i])
+                count++;
             else count--;
             if (count <= 0) {
                 tmp = a[i];
@@ -90,19 +86,29 @@ public abstract class hello {
         // System.out.println(handStr("AAABBBCAAADD"));
         // System.out.println(getMagic("ABABABC"));
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        //
+        // String s;
+        // while ((s = reader.readLine()) != null && (s.length() != 0)) {
+        // }
+        //
+//        String ROOT_PATH = "/home/liubida/";
+//        String dirName = "aa/bb/cc";
+//        File dir = new File(ROOT_PATH + dirName);
+//        dir.createNewFile();
+//        System.out.println("1");
 
-        String s;
-        while ((s = reader.readLine()) != null && (s.length() != 0)) {
-        }
-
+        System.out.println("----------------");
+        System.out.println(80.0 / 437.0);
     }
 
     static boolean isPrime(int n) {
-        if (n <= 1) return false;
+        if (n <= 1)
+            return false;
         int M = (int) Math.sqrt(n);
         for (int i = 2; i <= M; i++) {
-            if (n % i == 0) return true;
+            if (n % i == 0)
+                return true;
         }
         return false;
     }
@@ -144,7 +150,8 @@ public abstract class hello {
         for (int i = 2; i <= n; i++) {
             if (!a[i]) {
                 j = i * i;
-                if (j > n) break;
+                if (j > n)
+                    break;
                 else {
                     while (j <= n) {
                         a[j] = true;
