@@ -1,14 +1,11 @@
 /**
  * Project: ThinkingInJAVA
- * 
  * File Created at 2011-8-2
  * $Id$
- * 
  * Copyright 1999-2100 Alibaba.com Corporation Limited.
  * All rights reserved.
- *
  * This software is the confidential and proprietary information of
- * Alibaba Company. ("Confidential Information").  You shall not
+ * Alibaba Company. ("Confidential Information"). You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
  * with Alibaba.com.
@@ -33,23 +30,24 @@ import com.liubida.ThinkingInJAVA.basic.Tmp.BBBTest;
 
 class aa {
 
-    private int     i = -1;
+    private int i = -1;
     private AAATest a = new AAATest();
     private BBBTest b = new Tmp().new BBBTest();
-    private Tmp     t = new Tmp();
+    private Tmp t = new Tmp();
     private BBBTest c = t.new BBBTest();
 }
 
 public class Tmp {
 
-    static class AAATest {
-    };
+    int t1 = 0;
+    int t2 = 1;
 
-    class BBBTest {
-    };
+    static class AAATest {};
+
+    class BBBTest {};
 
     public static void main1(String[] args) throws SecurityException, NoSuchFieldException, IllegalArgumentException,
-                                           IllegalAccessException {
+        IllegalAccessException {
         String create_table_server = "create table server (id integer primary key, " + "machineRoomId integer,"
                                      + "logicSiteId integer ," + "cabinetId integer ," + "deviceModelId integer ,"
                                      + "deparmentId integer ," + "serviceTag text not null," + "comments text ,"
@@ -66,6 +64,9 @@ public class Tmp {
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("appName", 1);
         m.put("gender", 2);
+        Map<String, Object> m1 = new HashMap<String, Object>();
+        m.put("gender", 3);
+        m.putAll(m1);
         System.out.println(m.get("gender"));
         System.out.println(m.get("appName"));
         System.out.println(m.get("appName111"));
@@ -84,7 +85,7 @@ public class Tmp {
 
     }
 
-    public static void main(String[] args) throws ParseException {
+    public static void main2(String[] args) throws ParseException {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String str3 = "1937-12-31 23:54:07";
         String str4 = "1937-12-31 23:54:08";
@@ -98,10 +99,6 @@ public class Tmp {
         System.out.println(ld4 - ld3);
 
         System.out.println("-----------------");
-        toCharacter("102");
-        toCharacter("DC13");
-        toCharacter("no");
-        toCharacter("仓库");
 
         List<Integer> aList = new ArrayList<Integer>();
         for (int i = 0; i < 20; i++) {
@@ -134,18 +131,74 @@ public class Tmp {
         System.out.println(m.get(null) == null);
     }
 
-    public static void toCharacter(String s) {
-        // char[] array = s.toCharArray();
-        // String to = String.copyValueOf(array, 0, 2);
-        // System.out.print(to);
+    public static void main(String[] args) {
+        // System.out.println(Math.round(1.4));
+        // System.out.println(Math.round(1.44));
+        // System.out.println(Math.round(1.45));
+        // System.out.println(Math.round(1.50));
+        // System.out.println(Math.round(1.52));
+        //
+        // BigDecimal a = new BigDecimal(1.44);
+        // BigDecimal b = new BigDecimal(1.49);
+        // BigDecimal c = new BigDecimal(1.50);
+        //
+        // DecimalFormat f = new DecimalFormat("#0.00");
+        // System.out.println(f.format(1.345)); // 五前为偶应舍去
+        // System.out.println(f.format(1.3450001)); // 五后非零就进一
+        // System.out.println(f.format(1.355)); // 五前为奇要进一
 
-        // System.out.print(array[1]);
-        // System.out.print(array[2]);
-        // for (char c : s.toCharArray()) {
-        // System.out.print(c);
-        // System.out.print(' ');
+        // List<String> bbb = new ArrayList<String>();
+        // bbb.add("123");
+        // fff(bbb);
+        // for (String string : bbb) {
+        // System.out.println(string);
         // }
-        // System.out.println();
+        //
+        // Object a = new String("111");
+        // System.out.println(null instanceof Integer);
+        Map<String, Tmp> map = new HashMap<String, Tmp>();
+
+        List<Tmp> l = new ArrayList<Tmp>();
+        Tmp t1 = new Tmp();
+        t1.t1 = 0;
+        t1.t2 = 1;
+        Tmp t2 = new Tmp();
+        t2.t1 = 2;
+        t2.t2 = 3;
+        l.add(t1);
+        l.add(t2);
+        map.put("0", l.get(0));
+        map.put("1", l.get(1));
+        for (String s : map.keySet()) {
+            System.out.println(map.get(s).t1);
+            System.out.println(map.get(s).t2);
+        }
+        l.get(0).t1=100 ;
+        for (String s : map.keySet()) {
+            System.out.println(map.get(s).t1);
+            System.out.println(map.get(s).t2);
+        }
+        
+        
+
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("appName", 1);
+        m.put("gender", 2);
+        Map<String, Object> m1 = new HashMap<String, Object>();
+        m1.put("gender", 3);
+        m.putAll(m1);
+        System.out.println(m.get("gender"));
+        System.out.println(m.get("gender"));
+        System.out.println(m.get("gender"));
+        System.out.println(m.get("gender"));
+    }
+
+    public static void fff(List<String> a) {
+        a.add("11111");
+        a.add("11111");
+        a.add("11111");
+        a.add("11111");
+        a.remove(0);
     }
 }
 

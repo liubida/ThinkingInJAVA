@@ -46,7 +46,7 @@ public class Recv implements Runnable {
             channel.exchangeDeclare(exchangeName, "direct", durable);
             channel.queueDeclare(queueName, durable,false,false,null);
             channel.queueBind(queueName, exchangeName, routingKey);
-            boolean noAck = false;
+            boolean noAck = true;
 
             consumer = new QueueingConsumer(channel);
             channel.queueDeclare(Send.QUEUE_NAME, false, false, false, null);
