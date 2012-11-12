@@ -1,11 +1,6 @@
-/*
- * Copyright 2012 sohu.com All right reserved. This software is the
- * confidential and proprietary information of sohu.com ("Confidential
- * Information"). You shall not disclose such Confidential Information and shall
- * use it only in accordance with the terms of the license agreement you entered
- * into with sohu.com.
- */
-package com.liubida.sohu.rabbitmq;
+package com.liubida.sohu.rabbitmq.three;
+
+import java.util.concurrent.TimeUnit;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -13,12 +8,9 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 import com.rabbitmq.client.QueueingConsumer.Delivery;
 
-/**
- * 类Recv.java的实现描述：TODO 类实现描述
- * 
- * @author liubida Sep 20, 2012 4:33:21 PM
- */
 public class Recv implements Runnable {
+
+    private final static boolean AUTO_ACK = false;
 
     private ConnectionFactory factory = null;
     private Connection connection = null;
@@ -26,43 +18,42 @@ public class Recv implements Runnable {
     private Channel channel = null;
     private boolean bStop = true;
 
-    @Override
-    public void run() {
-        bStop = false;
+    public Recv(){
         factory = new ConnectionFactory();
         factory.setUsername("guest");
         factory.setPassword("guest");
         factory.setVirtualHost("/");
-        factory.setHost("127.0.0.1");
-        factory.setPort(5672);
-        
+        factory.setHost(Send.DOMAIN);
+        factory.setPort(Send.PORT);
+    }
+
+    @Override
+    public void run() {
+        bStop = false;
         try {
             connection = factory.newConnection();
             channel = connection.createChannel();
-            String exchangeName = "myExchange";
-            String queueName = "myQueue";
-            String routingKey = "testRoute";
-            boolean durable = true;
-            channel.exchangeDeclare(exchangeName, "direct", durable);
-            channel.queueDeclare(queueName, durable,false,false,null);
-            channel.queueBind(queueName, exchangeName, routingKey);
-            boolean noAck = true;
-
+            channel.basicQos(5);
+//            channel.exchangeDeclare("logs","fanout");
+            String queueName = channel.queueDeclare().getQueue();
+            channel.queueBind(queueName, "logs", "");
             consumer = new QueueingConsumer(channel);
-            channel.queueDeclare(Send.QUEUE_NAME, false, false, false, null);
-            channel.basicConsume(queueName, noAck, consumer);
-
+            
+            channel.basicConsume(queueName, AUTO_ACK, consumer);
             Delivery delivery = null;
             System.out.println(" [*] Waiting for messages. To exit press any key");
             while (!Thread.interrupted() && !bStop) {
                 delivery = consumer.nextDelivery();
                 String message = new String(delivery.getBody());
-                System.out.println(" [<<] Received : " + message + "'");
+                System.out.println(" [<<] Received : " + message);
+                TimeUnit.MILLISECONDS.sleep(400);
+                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             }
+            bStop = true;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println(" Recv [*] ");
+            System.out.println(" Recv [end] ");
             if (null != channel) {
                 try {
                     channel.close();
